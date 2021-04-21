@@ -1,0 +1,157 @@
+# messages.po : French translation file for Mealy project.
+# Date : 11/04/2021
+# Copyleft (CL) 2021 - Thierry Maillard
+# This file is distributed under the same license as the Mealy package.
+# Thierry Maillard <Thierry.Maillard500@orange.fr>, 2021.
+#
+# Conversion in .mo format to be used by gettext : msgfmt messages.po 
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mealy V3.0\n"
+"Report-Msgid-Bugs-To: Thierry Maillard <Thierry.Maillard500@orange.fr>\n"
+"POT-Creation-Date: 2015-05-10 17:46+0200\n"
+"PO-Revision-Date: 2021-04-20 18:15+0100\n"
+"Last-Translator: Thierry Maillard <Thierry.Maillard500@orange.fr>\n"
+"Language-Team: Fr <Thierry.Maillard500@orange.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Mealy - Enter keys"
+msgstr "Mealy - Entrez les clés"
+
+msgid "Mealy - Cipher / Decipher"
+msgstr "Mealy - Chiffrement / Déchiffrement"
+
+msgid "Ready !"
+msgstr "Prêt !"
+
+msgid "Enter secret keys"
+msgstr "Entrez vos clés secrètes"
+
+msgid "Numeric key :"
+msgstr "Clé numérique :"
+
+msgid "With character key (for security)"
+msgstr "Avec clé en lettres (pour sécurité)"
+
+msgid "Validate keys"
+msgstr "Valider les clé"
+
+msgid "Mealy - Select external key file"
+msgstr "Mealy - Choisissez un fichier clé externe"
+
+msgid "Keyboard input :"
+msgstr "Entrée au clavier :"
+
+msgid "Wikipedia Fr page :"
+msgstr "Page de Wikipedia Fr :"
+
+msgid "Local file :"
+msgstr "Fichier local :"
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Cipher"
+msgstr "Chiffrement"
+
+msgid "Decipher"
+msgstr "Déchiffrement"
+
+msgid "Or type your text in editor below :"
+msgstr "Ou tapez votre texte dans l'éditeur ci-dessous"
+
+msgid "Clear"
+msgstr "Effacer"
+
+msgid "Insert from :"
+msgstr "Insérer depuis :"
+
+msgid ".txt file..."
+msgstr "Fichier .txt..."
+
+msgid ".png file..."
+msgstr "Fichier .png..."
+
+msgid "Process"
+msgstr "Traiter"
+
+msgid "Change Keys"
+msgstr "Modifier les clés"
+
+msgid "Type a text in editor"
+msgstr "Tapez un texte dans l'éditeur"
+
+msgid "Mealy - Results"
+msgstr "Mealy - Résultats"
+
+msgid "Results"
+msgstr "Résultats"
+
+msgid "Text processed"
+msgstr "Texte traité"
+
+msgid "Save in a file :"
+msgstr "Enregistrer dans un fichier :"
+
+msgid "Key must be a positive integer !"
+msgstr "La clé numérique doit être un entier positif !"
+
+msgid "Mealy machine started : Ready"
+msgstr "Machine de Mealy démarrée : prête"
+
+msgid "Mealy machine not ready !"
+msgstr "Machine de Mealy non démarrée !"
+
+msgid "Problem : "
+msgstr "Problème : "
+
+msgid "Results saved in file"
+msgstr "Résultats enregistré dans le fichier"
+
+msgid "Unable to read text file !"
+msgstr "Impossible d'enregistrer le texte dans le fichier"
+
+msgid "Message processed : OK"
+msgstr "Message traité : OK"
+
+msgid "Mealy error when processing text :"
+msgstr "Erreur lors du traitement du texte par Mealy"
+
+msgid "Problem when processing text !"
+msgstr "Problème lors du traitement du texte par Mealy"
+
+msgid "Please enter a text !"
+msgstr "Veuillez entrer un texte non vide !"
+
+msgid "Unable to save in file"
+msgstr "Inmpossible d'enregistrer dans le fichier"
+
+msgid "Go back..."
+msgstr "Retour..."
+
+msgid "Go next..."
+msgstr "Suivant..."
+
+msgid "Select a PNG file to hide text in it (read only)"
+msgstr "Choisissez un fichier PNG pour y cacher le texte (lecture seulement)"
+
+msgid "Select a filename for saving result"
+msgstr "Choisissez un nom de fichier pour sauver le résultat"
+
+msgid "Select a file containing text to insert"
+msgstr "Selectionnez un fichier contenant le texte à insérer"
+
+msgid "Text read from "
+msgstr "Texte lu depuis "
+
+msgid "Select a file containing additional key"
+msgstr "Choisisez un fichier contenant la clé supplémentaire"
+
+msgid "Results not saved !"
+msgstr "Résultats non sauvegardés !"
+
+msgid "stepic 0.3 optional module not found : steganography is disailable"
+msgstr "Le module optionnel stepic 0.3 n'est pas présent : la steganographie est désactivée"

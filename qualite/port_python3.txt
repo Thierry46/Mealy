@@ -1,0 +1,170 @@
+
+Thierry Maillard - 20/11/2020 - 10/2/2021
+Mealy
+
+++++++++++++++++++++++
+Done :
+- porting from python2 to python 3
+- convert sources to utf-8 format
+- deal with french accents
+- Ignore chars the are not in internal alphabet
+- Simplify properties file name : Mealy.properties -> Mealy.ini
+- add property MealyMachine/allowedCharsExt to allow new chars in accepted alphabet
+- add new test cases
+- properties for Test
+
+++++++++++++++++++++++
+TODO :
+actaliser doc
+écrire readme
+GitHub
+
+++++++++++++++++++++++
+Details
+++++++++++++++++++++++
+
+==============
+Conversion Python 2 -> python 3
+2to3 -o src3 -n --no-diffs -W src
+
+==============
+Probleme encoding source files .py :
+transform from ISO-8859-1 to utf-8
++
+Header :
+# -*- coding: ISO-8859-1 -*-
+to
+#! /usr/bin/env python3
+
+cd src3
+mkdir iso
+for f in *.py
+do
+iconv -f ISO-8859-1 -t utf-8 < $f | sed 's/ISO-8859-1/utf-8/g' > iso/$f
+done
+
+==============
+Correction pb URL if accents, parenthesis
+in article name and encoding in Mealy.py/getArticleWpkFr()
+nomArticle = urllib.request.pathname2url(self.file)
+page = infile.read().decode('utf8')
+
+==============
+Correction variable type that hides built-in Python function type()
+type -> typeEntity
+
+==============
+Library http://www.pythonware.com/products/pil for Python2 only.
+Use Pillow (PIL fork) : https://pypi.org/project/Pillow
+MealyGUI.py : imp.find_module('Image') -> imp.find_module('PIL')
+	+ print("\tPIL  doc : https://pypi.org/project/Pillow")
+ResultFrame.py, Cypherrame : import Image -> from PIL import Image
+
+==============
+Pb steganography : save in png image :
+
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/tkinter/__init__.py", line 1885, in __call__
+    return self.func(*args)
+  File "/Users/thierry/Documents/informatique/developpement/python/exemple_py_tmd/mealy/mealy_v3.0/src/ResultFrame.py", line 150, in savePngButtonCallback
+    stepic.encode_inplace(image, textToWrite)
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/stepic/__init__.py", line 90, in encode_inplace
+    for pixel in encode_imdata(image.getdata(), data):
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/stepic/__init__.py", line 73, in encode_imdata
+    pixels[j] |= byte & 1
+TypeError: unsupported operand type(s) for &: 'str' and 'int'
+/Users/thierry/Desktop/Capture d’écran 2020-11-19 à 21.21.15.png
+
+stepic.encode_inplace(image, textToWrite)
+textToWrite est de type <class 'str'>
+
+stepic execute :
+byte = data[i] avec data = textToWrite
+pixels[j] |= byte & 1
+& entre un str et un int : erreur.
+Solution :
+Convertir textToWrite en bytes par bytes(textToWrite, 'utf8') et
+passage en parametre à stepic.encode_inplace
+car type(bytes(textToWrite, 'utf8')[0]) -> <class 'int'>
+ainsi byte & 1 est ok : même type
+
+==============
+Pb File chooser title repeated 2 times
+-> Suppression paramètre message
+
+==============
+Problème avec les caractères accentués lors de décodage de textes.
+"numérique - baisse des coûts" ->"numrique - baisse des cots"
+Problème d'encoding
+
+CypherFrame.py:
+self.root.setResultText(resultText)
+resultText = self.root.getMealy().deCipher(textToProcess)
+Mealy.py:
+def deCipher(self, text):
+
+string.printable
+'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c'
+otherAnsiChars = {char for char in string.printable if char not in page}
+self.alphabet = list(charsInPage | otherAnsiChars)        
+charsInPage = {char for char in page if char in string.printable}
+
+=======================
+Bug dans Mealy/setAlphabet()
+Avec clé numérique 25, texte Pépé (4 caractères) chiffré hx (2 caractères).
+Solution :
+Mealy.py
+        # V3.0 : accept accents in text to cypher
+        allowedChars = "àãáâÀÃÁÂéèêëÉÈÊËîïÎÏùüûÙÜÛôöÔÖœæçŒÆÇ" + string.printable
+        printable.extend(allowedChars)
+
+================================
+To open or write files :
+encoding = utf8 + context manager (with)
+=================
+
+===================
+Problème stepic et encoding :
+Tester steganographie : ne marche plus !
+
+Dans ResultFrame.py/savePngButtonCallback()
+On encode le texte en bytes par textToWrite.encode('utf8')
+
+Dans CypherFrame.py/fileChooserImageButtonCallback()
+stepic.decode(image) ne donne pas le bon texte
+stepic.decode(image).decode('utf8') -> AttributeError: 'str' object has no attribute 'decode'
+
+utiliser ord(caractère) pour transformer un char en int
+et chr(1 int) pour revenir au char
+èB(95?ô
+Run 1
+alphabet : =NÁ&K+-<Ë7ÊæRMSGmöï
+{A5ëEs"FÃ`?ÂbœP%é1_ÀÇ#Jj'Br$üCÆL}>ûz/Öê0ew!D;4kâYãI2TláÛùÏè6c 3Uf(.^@*çx]ô9ÉdÈoÜ8igXpu	OnÙWQ)|~Ôqà,VŒZtÎ\yH:vha[î
+Run2
+alphabet : [
+Cá5Ù%oöqŒAG.PÇ<,æZÆ0pRÈ+^NWËlÉêÂ8éÏrbwyV]ëQE`$œtÛÖOD!üFH&-ÊÀeB;1Î@KàMa'ôû7}ujçxc|~)ãzÔ{g>4Ãâ*v(JèITL#:d Uh_2XîfÁm=ù3	i\Yïkn9?s6SÜ/"
+
+Salut ééé ! ab
+èB(95?
+À SqÎiï
+
+èB(95?
+À SqÎiï
+Salut ééé ! ab
+
+Si texte très long, ne peut pas être caché dans l'image
+voir limite
+
+voir si alphabet est le même entre 2 runs avec chaine clé
+
+("0123456789" +
+                        "abcdefghijklmnopqrstuvwxyz" +
+                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                        "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n")
+
+=========================
+Verif que l'image est assez grande pour cacher le message ?
+w = image.size[0]
+? nbpixel/8 < taille texte
+367*352/8 = 16148 > 5621

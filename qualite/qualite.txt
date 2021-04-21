@@ -1,0 +1,34 @@
+
+Thierry Maillard - 30/1/2021 - 17/4/2021
+
+++++++++++++++++++++++
+Mealy project quality
+++++++++++++++++++++++
+
+cd /Users/thierry/Documents/informatique/developpement/python/exemple_py_tmd/mealy/mealy_v3.0/src
+
+Running unit test :
+python3 -m pytest .
+
+Static analysis :
+python3 -m pylint --additional-builtins=_ --disable=invalid-name *.py
+Your code has been rated at 9.75/10 (previous run: 9.74/10, +0.01)
+
+Covering test :
+Analyse running Py.test : python3 -m coverage run -m pytest .
+Send results in file : python3 -m coverage report > ../qualite/couv_test_verbose.txt
+Name                    Stmts   Miss  Cover
+-------------------------------------------
+CardFrame.py              105     88    16%
+CypherFrame.py             98     83    15%
+KeysFrame.py               90     79    12%
+Mealy.py                  167     13    92%
+MealyGUI.py                55     42    24%
+ResultFrame.py             65     53    18%
+run_Mealy.py              126     22    83%
+steganography.py           44      9    80%
+test_Mealy.py             158      0   100%
+test_run_Mealy.py         180      4    98%
+test_steganography.py      26      2    92%
+-------------------------------------------
+TOTAL                    1114    395    65%
